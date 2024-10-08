@@ -302,7 +302,9 @@ fn only_evens(x: usize) -> bool {
 
 - unwrap
 
-No deberiamos de usarlo, pero es útil para aprender en un principio.
+No deberiamos de usarlo ya que puede causar un crash, pero es útil para aprender en un principio.
+
+Nos permite obtener el valor de un Option<T> (parecido a null o undefined) o un Result<T, E>.
 
 ```rust
 fn main() {
