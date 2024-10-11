@@ -315,3 +315,51 @@ fn main() {
 
 ```
 
+### Codeando en Rust
+
+#### Valor, Mutable y No mutable
+
+
+```rust
+let mut x = 5; // valor
+let y = &x; // referencia a x, de solo lectura
+let y = &mut x; // referencia a x, de lectura y escritura
+// Para que este último funcione, x tiene que ser mutable
+```
+
+Esta distinción es importante ya que nos permite generar funciones que: mutan y funciones que no.
+
+- Pueden leer
+```rust
+fn do_this(x: &i32) {
+  println!("x: {}", x);
+}
+```
+
+- Pueden mutar sus propios valores
+
+```rust
+fn do_this(x: &mut i32) {
+  *x += 1;
+}
+```
+
+En resumen:
+
+- Reference, significa solo lectura, y se define con &
+- Mutable reference, significa lectura y escritura, y se define con &mut
+- Value, significa que es un valor en sí, y se define normalmente
+
+
+#### Unit
+
+() es llamada Unit, y efectivamente es un valor que no tiene nada.
+
+Ejemplo:
+
+```rust
+fn only_evens(x: usize) -> Result<()> {
+
+  return Ok(());
+}
+```
