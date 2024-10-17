@@ -327,6 +327,8 @@ let y = &mut x; // referencia a x, de lectura y escritura
 // Para que este último funcione, x tiene que ser mutable
 ```
 
+Ejemplo: en JS no podrías usar `.reverse()` en un array sino esta definido como `&mut`.
+
 Esta distinción es importante ya que nos permite generar funciones que: mutan y funciones que no.
 
 - Pueden leer
@@ -363,3 +365,24 @@ fn only_evens(x: usize) -> Result<()> {
   return Ok(());
 }
 ```
+
+#### Codeando un iterador
+
+Un iterador es una estructura de datos que nos permite iterar sobre otra colección de datos, por ej un `vec![1,2,3]`.
+
+```typescript
+const newArray = [1, 2, 3].map(item => item + 1);
+console.log(newArray);
+```
+
+```rust
+let numbers_vector: Vec<_> = vec![1, 2, 3].iter().map(|item| item + 10).collect();
+```
+
+```rust
+Vec<_> // el _ infiere los datos internos del vector
+```
+
+Para volver a convertir iterador hacia una estructura, tenemos que hacer 2 cosas:
+- Definir 1ro el tipo en la variable que estemos trabajando
+- Ejecturar `.collect()` al final de nuestra iteración
