@@ -386,3 +386,65 @@ Vec<_> // el _ infiere los datos internos del vector
 Para volver a convertir iterador hacia una estructura, tenemos que hacer 2 cosas:
 - Definir 1ro el tipo en la variable que estemos trabajando
 - Ejecturar `.collect()` al final de nuestra iteración
+
+#### Entendiendo Collect
+
+
+Leer un archivo en TS vs Rust, y mostrar linea por linea
+
+```typescript
+import fs from "fs";
+
+fs.readFilySync("lines")
+  .toString()
+  .split("\n")
+  .forEach(line => console.log(line))
+```
+
+```rust
+fn main() {
+    let file = std::fs::read_to_string("lines").unwrap();
+    file.lines().for_each(|line| println!("{}", line));
+}
+```
+
+Same but printing odd lines
+
+```typescript
+import fs from "fs";
+
+fs.readFilySync("lines")
+  .toString()
+  .split("\n")
+  .filter((_, i) => i % 2 === 0)
+  .forEach(line => console.log(linea))
+```
+
+En Rust en este caso `lines()` ya nos brinda un iterador, y lo que hace básicamente es un `split("\n")` en TS.
+Pero por ejemplo si queremos filtrar el iterador no nos brinda un indice, por ende tenemos que usar `.enumerate()` para tener indices.
+Y en nuestro caso poder filtrar los impares y mostrar solo las lineas pares.
+
+```rust
+fn main() {
+    let file = std::fs::read_to_string("lines").unwrap();
+
+    file.lines()
+        .enumerate()
+        .filter(|(index, _)| index % 2 == 0)
+        .for_each(|(_, line)| println!("{}", line));
+}
+```
+
+Por ejemplo volviendo a la sección anterior si quisieramos sumar el indice en el map, también tendríamos que usar `.enumerate()`
+
+```rust
+fn main() {
+    let numbers_vector: Vec<_> = vec![1, 2, 3]
+        .iter()
+        .enumerate()
+        .map(|(index, item)| item + index)
+        .collect();
+
+    println!("{:?}", numbers_vector);
+}
+```
